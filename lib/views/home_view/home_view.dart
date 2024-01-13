@@ -1,57 +1,37 @@
 import 'package:flutter/material.dart';
+import 'package:responsiv_app/views/home_view/widgets/custom_body.dart';
+import 'package:responsiv_app/views/home_view/widgets/custom_drawer.dart';
 import 'package:responsiv_app/views/home_view/widgets/custom_gride_view.dart';
+import 'package:responsiv_app/views/home_view/widgets/custom_list_view.dart';
 
-class HomeView extends StatelessWidget {
+class HomeView extends StatefulWidget {
   const HomeView({Key? key}) : super(key: key);
+
+  @override
+  State<HomeView> createState() => _HomeViewState();
+}
+
+class _HomeViewState extends State<HomeView> {
+  GlobalKey <ScaffoldState> scafoldKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scafoldKey,
+      drawer: const CustomDrawer(),
       appBar: AppBar(
         backgroundColor: Colors.black,
         leading: IconButton(
-          onPressed: () {},
+          onPressed: () {
+            scafoldKey.currentState!.openDrawer();
+          },
           icon: Icon(Icons.menu),
         ),
       ),
       body:
-      Container(
-        color: Colors.grey[300],
-        child: Column(
-
-          children: [
-            CustomGrideView(),
-
-            CustomListView(),
-          ],
-        ),
-      ),
+      const CustomBody(),
     );
   }
 }
 
-class CustomListView extends StatelessWidget {
-  const CustomListView({Key? key}) : super(key: key);
 
-  @override
-  Widget build(BuildContext context) {
-    return Expanded(
-      child: ListView.builder(
-          shrinkWrap: true,
-          //physics: NeverScrollableScrollPhysics(),
-          itemCount: 20,
-          itemBuilder: (context, index) {
-            return  Padding(
-              padding: EdgeInsets.only(bottom: 4),
-              child: Container(
-                height: 30,
-                  width: double.infinity,
-
-                  color: Colors.white,
-
-              ),
-            );
-          }),
-    );
-  }
-}
